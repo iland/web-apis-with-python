@@ -4,19 +4,20 @@ app = Flask(__name__)
 
 @app.get("/")
 def index():
-    """
-    TODO: Render the home page provided under templates/index.html in the repository
-    """
-    return "TODO"
+    return render_template("index.html")
 
 @app.get("/search")
 def search():
-	"""
-	TODO:
-	1. Capture the word that is being searched
-	2. Seach for the word on Google and display results
-	"""
-    return "TODO"
+    args = request.args.get("q")
+    submit = request.args.get("submit")
+    
+    if "search" == submit:
+        return redirect(f"https://google.com/search?q={args}")
+    elif "lucky" == submit:
+        # TODO Need to improve
+        return redirect(f"https://www.google.com/search?q={args}&btnI=I'm+Feeling+Lucky")
+    else:
+        return redirect("/");
 
 if __name__ == "__main__":
     app.run()
